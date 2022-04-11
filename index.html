@@ -29,26 +29,21 @@
       src: url(IndieFlower.woff2) format("woff2");
     }
     #content {
-      margin: 8px;
       line-height: 1.4;
-      position: absolute;
+      /*position: absolute;*/
       text-align: center;
       font-size: 32px;
       font-family: fancy1;
+      width: 90%;
       max-width: 600px;
-      left: 50%;
-      transform: translateX(-50%);
+      margin: 0 auto;
     }
     @keyframes fdsseq { 
 	    100% { opacity: 1; }
     }
     section {
-      margin-bottom: 24px;
-      animation: fdsseq 5s forwards;
+      padding: 12px 0;
       opacity: 0;
-    }
-    #player {
-      display: none;
     }
   </style>
   <script>
@@ -60,13 +55,13 @@
         bg.style.opacity = 0.4;
         bg.style.backgroundImage = `url(${img.src})`;
         img = null;
+        for (let i = 0; i < document.getElementsByTagName('section').length; i++) {
+          document.getElementsByTagName('section')[i].style.animation = 'fdsseq 5s forwards ' + parseFloat(0.2 + i * 0.4) + 's';
+        }
       });
     }
     function S() {
       loadBg();
-      for (let i = 0; i < document.getElementsByTagName('section').length; i++) {
-        document.getElementsByTagName('section')[i].style.animationDelay = parseFloat(0.2 + i * 0.4) + 's';
-      }
     }
   </script>
 </head>
@@ -104,51 +99,5 @@
     We are so small in relation to the strings of time entangling themselves within our universe and our limited lifetime is the premise for the resultingly even larger strive to leave something once we're gone, that makes our souls live on in the glow of infinity.
   </section>
   </div>
-  <div id="player"></div>
-  <script>
-     var tag = document.createElement('script');
-
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-// 3. This function creates an <iframe> (and YouTube player)
-//    after the API code downloads.
-var player;
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-    height: '390',
-    width: '640',
-    videoId: 'D5j0FfGcTx0',
-    start:10,
-    playerVars: {
-      'playsinline': 1
-    },
-    events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
-    }
-  });
-}
-
-// 4. The API will call this function when the video player is ready.
-function onPlayerReady(event) {
-  event.target.playVideo();
-}
-
-// 5. The API calls this function when the player's state changes.
-//    The function indicates that when playing a video (state=1),
-//    the player should play for six seconds and then stop.
-var done = false;
-function onPlayerStateChange(event) {
-  if (event.data == YT.PlayerState.PLAYING && !done) {
-    //setTimeout(stopVideo, 6000);
-    done = true;
-  }
-}
-function stopVideo() {
-  player.stopVideo();
-}
-  </script>
 </body>
 </html>
